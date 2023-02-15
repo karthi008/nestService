@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { userPojo } from './pojo/userPojo';
+import { productPojo, findProductPojo } from './pojo/userPojo';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { Model, Types } from 'mongoose';
@@ -12,16 +12,32 @@ export class AppService {
     return 'Hello World!';
   }
 
-  async createUser(request: userPojo) {
+  async createUser(request: productPojo) {
     const user = await new this.userModel(request).save();
     return user;
   }
 
-  async getUserById(userId: string) {
-    const user: User = await this.userModel
-      .findById(new Types.ObjectId(userId))
-      .exec();
-    return user;
+  async getProductByMake(make: string) {
+    const productsList = await this.userModel
+      .find({
+        make: make,
+      })
+      .limit(50);
+    return productsList ? productsList : [];
+  }
+
+  async getProductByRegNo(regNo: string) {
+    const productsList = await this.userModel
+      .find({
+        regNo: regNo,
+      })
+      .limit(50);
+    return productsList ? productsList : [];
+  }
+
+  async findByRegNoAndMake(request: findProductPojo) {
+    const productsList = await this.userModel.findOne(request);
+    return productsList ? productsList : {};
   }
 
   async deleteUserById(userId: string) {

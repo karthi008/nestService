@@ -11,7 +11,7 @@ import {
   Request,
   Delete,
 } from '@nestjs/common';
-import { userPojo } from './pojo/userPojo';
+import { productPojo, findProductPojo } from './pojo/userPojo';
 
 @Controller()
 export class AppController {
@@ -23,18 +23,38 @@ export class AppController {
   }
 
   @Post('/addUser')
-  async addUser(@Body() body: userPojo, @Request() req, @Res() response) {
+  async addUser(@Body() body: productPojo, @Request() req, @Res() response) {
     const result = await this.appService.createUser(body);
     return response.status(HttpStatus.OK).send(result);
   }
 
-  @Get('/getUser/:userId')
-  async getUserById(
-    @Param('userId') userId: string,
+  @Post('/findProduct')
+  async findByRegNoAndMake(
+    @Body() body: findProductPojo,
     @Request() req,
     @Res() response,
   ) {
-    const result = await this.appService.getUserById(userId);
+    const result = await this.appService.findByRegNoAndMake(body);
+    return response.status(HttpStatus.OK).send(result);
+  }
+
+  @Get('/getMake/:make')
+  async getProductByMake(
+    @Param('make') make: string,
+    @Request() req,
+    @Res() response,
+  ) {
+    const result = await this.appService.getProductByMake(make);
+    return response.status(HttpStatus.OK).send(result);
+  }
+
+  @Get('/getModal/:regNo')
+  async getUserById(
+    @Param('regNo') regNo: string,
+    @Request() req,
+    @Res() response,
+  ) {
+    const result = await this.appService.getProductByRegNo(regNo);
     return response.status(HttpStatus.OK).send(result);
   }
 
