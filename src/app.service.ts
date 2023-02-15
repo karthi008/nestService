@@ -40,10 +40,10 @@ export class AppService {
     return productsList ? productsList : {};
   }
 
-  async deleteUserById(userId: string) {
-    const userStatus = await this.userModel
-      .deleteOne(new Types.ObjectId(userId))
+  async deleteProductByRegNo(regNo: string) {
+    const productStatus = await this.userModel
+      .deleteOne({ regNO: regNo })
       .exec();
-    return userStatus;
+    return productStatus;
   }
 }

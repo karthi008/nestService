@@ -48,7 +48,7 @@ export class AppController {
     return response.status(HttpStatus.OK).send(result);
   }
 
-  @Get('/getModal/:regNo')
+  @Get('/getRegNo/:regNo')
   async getUserById(
     @Param('regNo') regNo: string,
     @Request() req,
@@ -58,13 +58,13 @@ export class AppController {
     return response.status(HttpStatus.OK).send(result);
   }
 
-  @Delete('/deleteUser/:userId')
+  @Delete('/deleteRegNo/:regNo')
   async deleteUserById(
-    @Param('userId') userId: string,
+    @Param('regNo') regNo: string,
     @Request() req,
     @Res() response,
   ) {
-    const result = await this.appService.deleteUserById(userId);
+    const result = await this.appService.deleteProductByRegNo(regNo);
     return response.status(HttpStatus.OK).send(result);
   }
 }
