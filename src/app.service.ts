@@ -12,7 +12,7 @@ export class AppService {
     return 'Hello World!';
   }
 
-  async createUser(request: productPojo) {
+  async addProduct(request: productPojo) {
     const user = await new this.userModel(request).save();
     return user;
   }

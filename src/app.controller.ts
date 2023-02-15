@@ -22,9 +22,9 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post('/addUser')
-  async addUser(@Body() body: productPojo, @Request() req, @Res() response) {
-    const result = await this.appService.createUser(body);
+  @Post('/addProduct')
+  async addProduct(@Body() body: productPojo, @Request() req, @Res() response) {
+    const result = await this.appService.addProduct(body);
     return response.status(HttpStatus.OK).send(result);
   }
 

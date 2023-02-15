@@ -13,6 +13,7 @@ export class User extends Document {
 
   @Prop({ required: true })
   regNo: string;
+  unique: true;
 
   @Prop({ required: true })
   registrationDate: Date;
